@@ -88,4 +88,4 @@
 ## Trouble Shooting
 
 ## TechStack
-JAVA, Spring boot, Spring Security, jwt, JPA, AWS S3, MYSQL, GIT  
+JAVA, Spring boot, Spring Security, jwt, JPA, AWS S3, MYSQL, GIT,AWS EC2
