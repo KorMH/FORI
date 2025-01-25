@@ -83,7 +83,8 @@
 
 
 ## ERD
-![음식리뷰서비스 (1)](https://github.com/user-attachments/assets/ebd954e8-7979-4109-addc-32dd0ed85806)
+![음식리뷰서비스](https://github.com/user-attachments/assets/7de8917c-16b8-4ce0-b4c3-ffaa49431f7f)
+
 
 ## Trouble Shooting
 
