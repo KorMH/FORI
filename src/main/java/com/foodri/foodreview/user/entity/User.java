@@ -38,8 +38,8 @@ public class User {
   private Role role;
 
   @Column(nullable = false)
-  private LocalDateTime create_at;
+  private LocalDateTime createdAt;
 
   @Column(nullable = false)
-  private LocalDateTime update_at;
+  private LocalDateTime updatedAt;
 }
