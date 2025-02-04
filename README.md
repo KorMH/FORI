@@ -87,7 +87,7 @@
 
 
 ## Trouble Shooting
-
+- https://github.com/KorMH/FORI/tree/main/doc
 
 ## TechStack
 JAVA, Spring boot, Spring Security, jwt, JPA, AWS S3, MYSQL, GIT,AWS EC2
