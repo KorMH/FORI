@@ -41,7 +41,7 @@ public class UserController {
   }
 
   // 사용자 계정 삭제
-  @DeleteMapping("/delete")
+  @DeleteMapping()
   public ResponseEntity<String> deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
     userService.deleteUser(userDetails.getUsername());
     return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");

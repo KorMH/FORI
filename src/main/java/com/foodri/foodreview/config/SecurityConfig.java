@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 
-//  private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final CustomUserDetailsService customUserDetailsService;
   private final JwtTokenProvider jwtTokenProvider;
 
@@ -36,6 +35,7 @@ public class SecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/api/user/**").permitAll()
             .anyRequest().authenticated()
         )
         .authenticationProvider(authenticationProvider())

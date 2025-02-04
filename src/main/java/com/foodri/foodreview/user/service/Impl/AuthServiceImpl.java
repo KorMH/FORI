@@ -12,12 +12,10 @@ import com.foodri.foodreview.user.repository.TokenRepository;
 import com.foodri.foodreview.user.repository.UserRepository;
 import com.foodri.foodreview.user.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +28,8 @@ public class AuthServiceImpl implements AuthService {
   private final PasswordEncoder passwordEncoder;
   private final JwtTokenProvider jwtTokenProvider;
   private final AuthenticationManager authenticationManager;
-  private final UserDetailsService userDetailsService;
   private final TokenRepository tokenRepository;
+  private final CustomUserDetailsService customUserDetailsService;
 
   @Override
   @Transactional
@@ -40,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
       throw new RuntimeException("이미 사용 중인 이메일입니다.");
     }
 
-    boolean isOwner = Boolean.TRUE.equals(request.getIsOwner());
+    boolean isOwner = Boolean.TRUE.equals(request.isOwner());
     if(isOwner && (request.getRestaurantName() == null || request.getRestaurantName().trim().isEmpty())){
       throw new RuntimeException("레스토랑 이름을 입력해주세요.");
     }
@@ -63,13 +61,14 @@ public class AuthServiceImpl implements AuthService {
     User user = userRepository.findByEmail(request.getEmail())
         .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
+    UserDetails userDetails = customUserDetailsService.loadUserByUsername(request.getEmail());
 
-    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
     String accessToken = jwtTokenProvider.generateAccessToken(userDetails);
     String refreshToken = jwtTokenProvider.generateRefreshToken(userDetails);
 
-    Token token = new Token(user,user.getEmail(),refreshToken);
+    Token token = new Token(user, user.getEmail(), refreshToken);
     tokenRepository.save(token);
+
     return new TokenDto(accessToken, refreshToken);
   }
 
@@ -87,8 +86,6 @@ public class AuthServiceImpl implements AuthService {
     // 토큰에서 사용자 이메일 추출
     String email = jwtTokenProvider.getUserEmail(token);
     int deletedCount = tokenRepository.deleteByEmail(email);
-    // DB에서 해당 사용자의 Refresh Token 삭제
-    Optional<Token> refreshToken = tokenRepository.findByEmail(email);
     if (deletedCount == 0) {
       throw new RuntimeException("이미 로그아웃 된 사용자 입니다.");
     }

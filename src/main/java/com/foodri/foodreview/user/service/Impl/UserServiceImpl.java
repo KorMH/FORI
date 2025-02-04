@@ -17,11 +17,8 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDto getUserByEmail(String email) {
-    Optional<User> userOptional = userRepository.findByEmail(email);
-    if (userOptional.isEmpty()) {
-      throw new RuntimeException("사용자를 찾을 수 없습니다.");
-    }
-    User user = userOptional.get();
+    User user = userRepository.findByEmail(email).orElseThrow(
+        () -> new RuntimeException("사용자를 찾을 수 없습니다."));
     return UserDto.builder()
         .email(user.getEmail())
         .phoneNumber(user.getPhoneNumber())
@@ -59,7 +56,6 @@ public class UserServiceImpl implements UserService {
   public void deleteUser(String email) {
     User user = userRepository.findByEmail(email)
         .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
-
     userRepository.delete(user);
   }
 }

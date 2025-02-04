@@ -25,7 +25,7 @@ public class UserRegisterDto {
   private String phoneNumber;
 
   @JsonProperty("isOwner")
-  private Boolean isOwner = false;
+  private boolean isOwner = false;
 
   private String restaurantName;
 }

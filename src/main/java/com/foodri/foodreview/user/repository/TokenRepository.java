@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
-  Optional<Token> findByEmail(String email);
   int deleteByEmail(String email);
 }

@@ -1,5 +1,6 @@
 package com.foodri.foodreview.user.service.Impl;
 
+import com.foodri.foodreview.user.dto.CustomUserDetails;
 import com.foodri.foodreview.user.entity.User;
 import com.foodri.foodreview.user.repository.UserRepository;
 import java.util.Optional;
@@ -17,7 +18,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    Optional<User> user = userRepository.findByEmail(email);
-    return user.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    return new CustomUserDetails(user);
   }
 }

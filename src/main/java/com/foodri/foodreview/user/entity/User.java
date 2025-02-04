@@ -33,7 +33,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-public class User implements UserDetails {
+public class User{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  @Column(name = "restaurantName")
+  @Column(name ="restaurant_name")
   private String restaurantName;
 
   @Column(nullable = false)
@@ -75,35 +75,5 @@ public class User implements UserDetails {
   @PreUpdate
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
-  }
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(role.name()));
-  }
-
-  @Override
-  public String getUsername() {
-    return email;
-  }
-
-  @Override
-  public boolean isAccountNonExpired() {
-    return UserDetails.super.isAccountNonExpired();
-  }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return UserDetails.super.isAccountNonLocked();
-  }
-
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return UserDetails.super.isCredentialsNonExpired();
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return UserDetails.super.isEnabled();
   }
 }
