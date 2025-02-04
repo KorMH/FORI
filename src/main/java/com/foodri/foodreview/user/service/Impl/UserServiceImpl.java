@@ -4,7 +4,6 @@ import com.foodri.foodreview.user.dto.UserDto;
 import com.foodri.foodreview.user.entity.User;
 import com.foodri.foodreview.user.repository.UserRepository;
 import com.foodri.foodreview.user.service.UserService;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

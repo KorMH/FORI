@@ -3,7 +3,6 @@ package com.foodri.foodreview.user.service.Impl;
 import com.foodri.foodreview.user.dto.CustomUserDetails;
 import com.foodri.foodreview.user.entity.User;
 import com.foodri.foodreview.user.repository.UserRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
