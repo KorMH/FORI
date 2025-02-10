@@ -3,7 +3,6 @@ package com.foodri.foodreview.restaurant.Controller;
 
 import com.foodri.foodreview.restaurant.dto.RestaurantRequestDto;
 import com.foodri.foodreview.restaurant.dto.RestaurantResponseDto;
-import com.foodri.foodreview.restaurant.entity.Restaurant;
 import com.foodri.foodreview.restaurant.service.Impl.RestaurantServiceImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

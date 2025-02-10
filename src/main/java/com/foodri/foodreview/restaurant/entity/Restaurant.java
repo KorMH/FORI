@@ -13,17 +13,14 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @AllArgsConstructor
 @Table(name = "restaurant")
