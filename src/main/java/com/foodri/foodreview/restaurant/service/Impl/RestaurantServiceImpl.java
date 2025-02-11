@@ -9,9 +9,9 @@ import com.foodri.foodreview.restaurant.repository.RestaurantRepository;
 import com.foodri.foodreview.restaurant.service.RestaurantService;
 import com.foodri.foodreview.user.entity.User;
 import com.foodri.foodreview.user.repository.UserRepository;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,20 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new CustomException(HttpStatus.BAD_REQUEST,ErrorCode.USER_NOT_FOUND));
 
-    Restaurant restaurant = Restaurant.builder()
-        .name(requestDto.getName())
-        .address(requestDto.getAddress())
-        .phoneNumber(requestDto.getPhoneNumber())
-        .category(requestDto.getCategory())
-        .openingHours(requestDto.getOpeningHours())
-        .maxCapacity(requestDto.getMaxCapacity())
-        .maxReservationLimit(requestDto.getMaxReservationLimit())
-        .reservationTimeUnit(requestDto.getReservationTimeUnit())
-        .isOpen(true)
-        .user(user)
-        .createdAt(requestDto.getCreateAt())
-        .updatedAt(requestDto.getUpdateAt())
-        .build();
+      Restaurant restaurant = Restaurant.createRestaurant(user,requestDto);
 
      restaurantRepository.save(restaurant);
      return changeToDto(restaurant);
@@ -67,11 +54,9 @@ public class RestaurantServiceImpl implements RestaurantService {
    */
   @Override
   @Transactional(readOnly = true)
-  public List<RestaurantResponseDto> getAllRestaurants() {
-    return restaurantRepository.findAll()
-        .stream()
-        .map(this::changeToDto)
-        .collect(Collectors.toList());
+  public Page<RestaurantResponseDto> getAllRestaurants(Pageable pageable) {
+    return restaurantRepository.findAll(pageable)
+        .map(this::changeToDto);
   }
 
   /**

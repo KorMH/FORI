@@ -1,9 +1,11 @@
 package com.foodri.foodreview.restaurant.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.foodri.foodreview.restaurant.dto.RestaurantRequestDto;
 import com.foodri.foodreview.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,7 +62,7 @@ public class Restaurant {
   @Column(nullable = false)
   private boolean isOpen;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
@@ -79,4 +81,39 @@ public class Restaurant {
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
   }
+
+  public static Restaurant createRestaurant(User user, RestaurantRequestDto requestDto){
+    return Restaurant.builder()
+        .name(requestDto.getName())
+        .address(requestDto.getAddress())
+        .phoneNumber(requestDto.getPhoneNumber())
+        .category(requestDto.getCategory())
+        .openingHours(requestDto.getOpeningHours())
+        .maxCapacity(requestDto.getMaxCapacity())
+        .maxReservationLimit(requestDto.getMaxReservationLimit())
+        .reservationTimeUnit(requestDto.getReservationTimeUnit())
+        .isOpen(true)
+        .user(user)
+        .createdAt(requestDto.getCreateAt())
+        .updatedAt(requestDto.getUpdateAt())
+        .build();
+  }
+
+  private Restaurant(String name, String address, String phoneNumber, String category,
+      Integer maxCapacity, String openingHours, Integer maxReservationLimit,
+      Integer reservationTimeUnit, boolean isOpen, LocalDateTime createdAt , LocalDateTime updatedAt, User user) {
+    this.name = name;
+    this.address = address;
+    this.phoneNumber = phoneNumber;
+    this.category = category;
+    this.openingHours = openingHours;
+    this.maxCapacity = maxCapacity;
+    this.maxReservationLimit = maxReservationLimit;
+    this.reservationTimeUnit = reservationTimeUnit;
+    this.isOpen = isOpen;
+    this.user = user;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
 }
