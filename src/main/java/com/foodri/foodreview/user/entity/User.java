@@ -1,6 +1,7 @@
 package com.foodri.foodreview.user.entity;
 
 
+import com.foodri.foodreview.restaurant.entity.Restaurant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,7 +61,12 @@ public class User{
   private LocalDateTime updatedAt;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Builder.Default
   private List<Token> tokens = new ArrayList<>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Builder.Default
+  private List<Restaurant> restaurants = new ArrayList<>();
 
   @PrePersist
   protected void onCreate() {
