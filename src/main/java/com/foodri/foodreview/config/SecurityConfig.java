@@ -38,6 +38,8 @@ public class SecurityConfig {
             .requestMatchers("/api/user/**").permitAll()
             .requestMatchers("/error/**").permitAll()
             .requestMatchers("/api/restaurants/**").permitAll()
+            .requestMatchers("/api/receipts/**").permitAll()
+            .requestMatchers("/api/reviews/**").permitAll()
             .anyRequest().authenticated()
         )
         .authenticationProvider(authenticationProvider())
