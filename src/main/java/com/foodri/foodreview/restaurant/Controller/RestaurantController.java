@@ -4,7 +4,6 @@ package com.foodri.foodreview.restaurant.Controller;
 import com.foodri.foodreview.restaurant.dto.RestaurantRequestDto;
 import com.foodri.foodreview.restaurant.dto.RestaurantResponseDto;
 import com.foodri.foodreview.restaurant.service.Impl.RestaurantServiceImpl;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +54,7 @@ public class RestaurantController {
    */
   @GetMapping
   public ResponseEntity<Page<RestaurantResponseDto>> getAllRestaurants(
-      @PageableDefault(size = 10, sort = "createAt", direction = Direction.DESC)Pageable pageable
+      @PageableDefault(size = 10, sort = "createdAt", direction = Direction.DESC)Pageable pageable
   ) {
     return ResponseEntity.ok(restaurantService.getAllRestaurants(pageable));
   }
