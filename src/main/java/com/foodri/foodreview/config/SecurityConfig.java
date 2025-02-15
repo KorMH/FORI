@@ -40,6 +40,7 @@ public class SecurityConfig {
             .requestMatchers("/api/restaurants/**").permitAll()
             .requestMatchers("/api/receipts/**").permitAll()
             .requestMatchers("/api/reviews/**").permitAll()
+            .requestMatchers("/api/notifications").permitAll()
             .anyRequest().authenticated()
         )
         .authenticationProvider(authenticationProvider())
