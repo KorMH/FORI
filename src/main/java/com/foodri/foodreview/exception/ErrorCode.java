@@ -23,7 +23,9 @@ public enum ErrorCode {
   RECEIPT_NOT_OWNED("014_RECEIPT_NOT_OWNED", "영수증을 찾을 수 없습니다."),
   REVIEW_ALREADY_EXISTS("015_REVIEW_ALREADY_EXISTS", "이미 존재하는 리뷰 입니다."),
   REVIEW_NOT_FOUND("016_REVIEW_NOT_FOUND","리뷰를 찾을 수 없습니다."),
-  UNAUTHORIZED("017_UNAUTHORIZED", "승인이 되지 않았습니다.");
+  UNAUTHORIZED("017_UNAUTHORIZED", "승인이 되지 않았습니다."),
+  COMMENT_NOT_FOUND("018_COMMENT_NOT_FOUND","댓글을 찾을 수 없습니다."),
+  LIKE_NOT_FOUND("019_LIKE_NOT_FOUND","좋아요를 찾을 수 없습니다.");
   private final String code;
   private final String msg;
 }
